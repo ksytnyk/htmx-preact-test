@@ -1,0 +1,47 @@
+{{#if data.tempCounter}}
+    <div id="counter" aria-live="polite">{{data.count}}</div>
+{{/if}}
+
+{{#if data.tempTodoList}}
+    <div id="todo-count">
+        {{data.list.length}}
+    </div>
+    <div id="todo-count2">
+        {{data.list.length}}
+    </div>
+    <div>
+        <form hx-post="/todo/action?add=1" hx-target="#todo-list" hx-swap="beforeend" hx-select-oob="div.todo-element">
+            <input type="text" name="task">
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    <div id="todo-list">
+        {{#each data.list}}
+            <div hx-target="this" hx-swap="outerHTML" hx-select-oob="div.todo-element">
+                {{id}}
+                <input type="checkbox" hx-post="/todo/action?check=1&id={{id}}" {{#if checked}}checked{{/if}}>
+                {{task}}
+                <input type="button" hx-post="/todo/action?remove=1&id={{id}}" hx-swap="delete">
+            </div>
+        {{/each}}
+    </div>
+{{/if}}
+
+{{#if data.tempTodoElement}}
+    <div class="todo-element" hx-target="this" hx-swap="outerHTML">
+        {{data.element.id}}
+        <input type="checkbox" hx-post="/todo/action?check=1&id={{data.element.id}}" {{#if data.element.checked}}
+        checked{{/if}}>
+        {{data.element.task}}
+        <input type="button" hx-post="/todo/action?remove=1&id={{data.element.id}}" hx-swap="delete">
+    </div>
+{{/if}}
+
+{{#if data.tempTodoListCounter}}
+    <div id="todo-count" hx-swap-oob="outerHTML:#todo-count">
+        {{data.list.length}}
+    </div>
+    <div id="todo-count2" hx-swap-oob="outerHTML:#todo-count2">
+        {{data.list.length}}
+    </div>
+{{/if}}

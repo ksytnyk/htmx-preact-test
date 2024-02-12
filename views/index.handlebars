@@ -1,2 +1,16 @@
 <div>
+    <style>
+        .htmx-request {
+            background: gray;
+            color: white;
+        }
+    </style>
+    <div id="counter" aria-live="polite"></div>
+    <button class="btn btn-primary" hx-post="/count" hx-target="#counter">
+        Count
+    </button>
+</div>
+
+<div hx-get="/todo/list" hx-trigger="load">
+
 </div>
